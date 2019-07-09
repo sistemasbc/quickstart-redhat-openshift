@@ -11,8 +11,15 @@ CREDS=$(aws secretsmanager get-secret-value --secret-id ${1} --region ${AWS_REGI
 REDHAT_USERNAME=$(echo ${CREDS} | jq -r .user)
 REDHAT_PASSWORD=$(echo ${CREDS} | jq -r .password)
 REDHAT_POOLID=$(echo ${CREDS} | jq -r .poolid)
+REDHAT_ORGANIZATION_ID=$(echo ${CREDS} | jq -r .organizationId)
+REDHAT_ACTIVATION_KEY=$(echo ${CREDS} | jq -r .activationKey)
 
-qs_retry_command 20 subscription-manager register --org=${REDHAT_USERNAME} --activationkey=${REDHAT_PASSWORD}
+if [[ ! -z ${REDHAT_ACTIVATION_KEY} ]]; then
+    qs_retry_command 20 subscription-manager register --org=${REDHAT_ORGANIZATION_ID} --activationkey=${REDHAT_ACTIVATION_KEY}
+else
+    qs_retry_command 20 subscription-manager register --username=${REDHAT_USERNAME} --password=${REDHAT_PASSWORD} --force
+    qs_retry_command 20 subscription-manager attach --pool=${REDHAT_POOLID}
+fi
 qs_retry_command 20 subscription-manager status
 qs_retry_command 20 subscription-manager repos --enable="rhel-7-server-rpms" \
     --enable="rhel-7-server-extras-rpms" \

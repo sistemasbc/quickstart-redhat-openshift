@@ -56,11 +56,13 @@ Metadata:
           - AutomationBroker
           - ClusterConsole
       - Label:
-          default: Red Hat Subscription Information
+          default: Red Hat Subscription Information - If you fill Activation Key and Organization ID, other fields will be ignored
         Parameters:
           - RedhatSubscriptionUserName
           - RedhatSubscriptionPassword
           - RedhatSubscriptionPoolID
+          - RedhatOrganizationID
+          - RedhatActivationKey
       - Label:
           default: AWS Quick Start Configuration
         Parameters:
@@ -102,6 +104,10 @@ Metadata:
         default: Red Hat Subscription Password
       RedhatSubscriptionPoolID:
         default: Red Hat Pool ID
+      RedhatOrganizationID:
+        default: Red Hat Organization ID
+      RedhatActivationKey:
+        default: Red Hat Activation Key
       OpenshiftContainerPlatformVersion:
         default: Openshift Container Platform Version
       MasterInstanceType:
@@ -215,7 +221,7 @@ Parameters:
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
       letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
       (-).
-    Default: aws-quickstart
+    Default: grupobc-quickstarts
     Description: S3 bucket name for the Quick Start assets. This string can include
       numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start
       or end with a hyphen (-).
@@ -259,6 +265,12 @@ Parameters:
     AllowedPattern: ^[^ \\']+$
   RedhatSubscriptionPoolID:
     Description: Enter Redhat RHN PoolID
+    Type: String
+  RedhatOrganizationID:
+    Description: Enter Redhat RHSM Organization ID
+    Type: String
+  RedhatActivationKey:
+    Description: Enter Redhat RHSM ActivationKey
     Type: String
   OpenshiftContainerPlatformVersion:
     Description: OpenShift version to deploy
@@ -518,6 +530,8 @@ Resources:
         RedhatSubscriptionUserName: !Ref 'RedhatSubscriptionUserName'
         RedhatSubscriptionPassword: !Ref 'RedhatSubscriptionPassword'
         RedhatSubscriptionPoolID: !Ref 'RedhatSubscriptionPoolID'
+        RedhatOrganizationID: !Ref 'RedhatOrganizationID'
+        RedhatActivationKey: !Ref 'RedhatActivationKey'
         OutputBucketName: !Ref 'OutputBucketName'
         VPCCIDR: !Ref 'VPCCIDR'
         VPCID: !GetAtt 'VPCStack.Outputs.VPCID'
