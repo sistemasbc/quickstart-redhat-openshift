@@ -12,8 +12,7 @@ REDHAT_USERNAME=$(echo ${CREDS} | jq -r .user)
 REDHAT_PASSWORD=$(echo ${CREDS} | jq -r .password)
 REDHAT_POOLID=$(echo ${CREDS} | jq -r .poolid)
 
-qs_retry_command 20 subscription-manager register --username=${REDHAT_USERNAME} --password=${REDHAT_PASSWORD} --force
-qs_retry_command 20 subscription-manager attach --pool=${REDHAT_POOLID}
+qs_retry_command 20 subscription-manager register --org=${REDHAT_USERNAME} --activationkey=${REDHAT_PASSWORD}
 qs_retry_command 20 subscription-manager status
 qs_retry_command 20 subscription-manager repos --enable="rhel-7-server-rpms" \
     --enable="rhel-7-server-extras-rpms" \
