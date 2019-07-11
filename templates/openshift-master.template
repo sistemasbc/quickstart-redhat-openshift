@@ -260,7 +260,7 @@ Parameters:
     Type: String
   RedhatSubscriptionPassword:
     NoEcho: 'true'
-    Description: Enter Redhat RHN Password
+    Description: Enter Redhat RHN Password. Despite you are using Activation Key, provide this information to be able to unsubscribe nodes on scaleDown.
     Type: String
     AllowedPattern: ^[^ \\']+$
   RedhatSubscriptionPoolID:
