@@ -5,7 +5,7 @@ To deploy this repository and use it, follow these instructions.
 1. First, create an S3 Bucket to host this repository and be able to deploy it throgh AWS CloudFormations
 1. Make S3 Bucket public and Static WebSite accessible
 1. Init and update git submodules
-  1. Run following command in this repository roothttps://github.com/sistemasbc/quickstart-redhat-openshift
+  1. Run following command in this repository root https://github.com/sistemasbc/quickstart-redhat-openshift
 ```
 git submodule init
 git submodule update
@@ -15,4 +15,4 @@ git submodule update
 . ~/Seafile/grupobc-it/aws/....
 aws s3 sync . s3://grupobc-quickstarts/quickstart-redhat-openshift/
 ```
-1. Follow this link https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=Red-Hat-OpenShift&templateURL=https://grupobc-quickstarts.s3.amazonaws.com/quickstart-redhat-openshift/templates/openshift-master.template
+1. Follow this [link](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=Red-Hat-OpenShift&templateURL=https://grupobc-quickstarts.s3.amazonaws.com/quickstart-redhat-openshift/templates/openshift-master.template)
